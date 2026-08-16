@@ -15,17 +15,17 @@ export default function Finance() {
       </div>
 
       {/* Financial Metrics */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
         {[
           { label: "Annual Gross Revenue", val: formatCurrency(monthlyFinance.reduce((s, m) => s + m.revenue, 0)), change: "+18.2%", color: "bg-blue-50 text-secondary" },
           { label: "Cost of Goods Sold (COGS)", val: formatCurrency(monthlyFinance.reduce((s, m) => s + m.cogs, 0)), change: "45% of Rev", color: "bg-red-50 text-red-600" },
           { label: "Gross Operating Profit", val: formatCurrency(monthlyFinance.reduce((s, m) => s + m.grossProfit, 0)), change: "+16.5%", color: "bg-green-50 text-green-600" },
           { label: "Net Profit Margin", val: formatCurrency(monthlyFinance.reduce((s, m) => s + m.netProfit, 0)), change: "24.8% Margin", color: "bg-amber-50 text-amber-600" },
         ].map((s) => (
-          <div key={s.label} className="bg-white rounded-2xl p-5 border border-slate-100 shadow-card">
-            <p className="text-xs text-slate-400 font-medium mb-1">{s.label}</p>
-            <p className="font-heading font-black text-2xl text-primary leading-tight">{s.val}</p>
-            <p className="text-[11px] font-bold text-slate-500 mt-2">{s.change}</p>
+          <div key={s.label} className="bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-100 shadow-card min-w-0 overflow-hidden">
+            <p className="text-[10px] sm:text-xs text-slate-400 font-medium truncate mb-1">{s.label}</p>
+            <p className="font-heading font-black text-base sm:text-2xl text-primary leading-tight truncate">{s.val}</p>
+            <p className="text-[10px] sm:text-[11px] font-bold text-slate-500 mt-1.5 sm:mt-2 truncate">{s.change}</p>
           </div>
         ))}
       </div>

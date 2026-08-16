@@ -58,8 +58,8 @@ export default function CustomerDashboard() {
           })}
         </div>
 
-        {/* Tabs */}
-        <div className="flex border-b border-slate-200 mb-6 space-x-6">
+        {/* Tabs Bar - Scrollable and responsive on mobile */}
+        <div className="flex border-b border-slate-200 mb-6 gap-2 sm:gap-6 overflow-x-auto whitespace-nowrap scrollbar-none pb-1">
           {[
             { id: "orders", label: "My Orders", icon: Package },
             { id: "wishlist", label: `Wishlist (${wishlist.length})`, icon: Heart },
@@ -71,8 +71,10 @@ export default function CustomerDashboard() {
               <button
                 key={t.id}
                 onClick={() => setActiveTab(t.id)}
-                className={`pb-3 text-sm font-bold flex items-center gap-2 border-b-2 transition-all ${
-                  activeTab === t.id ? "border-secondary text-secondary" : "border-transparent text-slate-500 hover:text-primary"
+                className={`px-3 py-2.5 sm:px-1 sm:py-0 sm:pb-3 text-xs sm:text-sm font-bold flex items-center gap-2 border-b-2 transition-all shrink-0 rounded-lg sm:rounded-none ${
+                  activeTab === t.id
+                    ? "border-secondary text-secondary bg-secondary/5 sm:bg-transparent"
+                    : "border-transparent text-slate-500 hover:text-primary hover:bg-slate-100 sm:hover:bg-transparent"
                 }`}
               >
                 <Icon size={16} /> {t.label}
@@ -85,7 +87,7 @@ export default function CustomerDashboard() {
         {activeTab === "orders" && (
           <div className="bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
             <div className="p-4 border-b border-slate-100 font-heading font-bold text-sm text-primary">Recent Orders</div>
-            <div className="overflow-x-auto">
+            <div className="table-responsive">
               <table className="data-table">
                 <thead>
                   <tr>

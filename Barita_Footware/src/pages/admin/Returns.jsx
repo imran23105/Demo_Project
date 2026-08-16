@@ -31,7 +31,7 @@ export default function Returns() {
       </div>
 
       <div className="bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="table-responsive">
           <table className="data-table">
             <thead>
               <tr>

@@ -63,7 +63,7 @@ export default function AdminOrders() {
 
       {/* Orders Table */}
       <div className="bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="table-responsive">
           <table className="data-table">
             <thead>
               <tr>
@@ -124,12 +124,12 @@ export default function AdminOrders() {
             {/* Timeline Stepper */}
             <div>
               <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Order Status Timeline</p>
-              <div className="flex items-center justify-between relative bg-slate-50 p-4 rounded-2xl border border-slate-100">
+              <div className="flex items-center justify-between relative bg-slate-50 p-4 rounded-2xl border border-slate-100 overflow-x-auto whitespace-nowrap scrollbar-none gap-3">
                 {["Placed", "Confirmed", "Processing", "Packed", "Shipped", "Delivered"].map((stepLabel, idx) => {
                   const stepIndex = ["Placed", "Confirmed", "Processing", "Packed", "Shipped", "Delivered"].indexOf(selectedOrder.status);
                   const isDone = idx <= (stepIndex >= 0 ? stepIndex : 1);
                   return (
-                    <div key={stepLabel} className="flex flex-col items-center z-10 text-center">
+                    <div key={stepLabel} className="flex flex-col items-center z-10 text-center shrink-0">
                       <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold ${isDone ? "bg-secondary text-white" : "bg-slate-200 text-slate-400"}`}>
                         {isDone ? <CheckCircle2 size={14} /> : idx + 1}
                       </div>

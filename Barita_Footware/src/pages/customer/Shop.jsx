@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { SlidersHorizontal, X, ChevronDown, Grid3x3, LayoutList } from "lucide-react";
 import ProductCard from "../../components/product/ProductCard";
+import MiniHero from "../../components/common/MiniHero";
 import { products } from "../../data/products";
 import { categories } from "../../data/categories";
 
@@ -80,15 +81,14 @@ export default function Shop({ category: propCategory, isNew, isSale }) {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <div className="bg-white border-b border-slate-100 py-6">
-        <div className="container-max">
-          <h1 className="font-heading font-black text-2xl text-primary">
-            {searchQuery ? `Results for "${searchQuery}"` : isNew ? "New Arrivals" : isSale ? "Sale" : propCategory ? categories.find((c) => c.slug === propCategory)?.name || "Shop" : "All Products"}
-          </h1>
-          <p className="text-slate-500 text-sm mt-1">{filtered.length} products found</p>
-        </div>
-      </div>
+      {/* Mini Hero Banner */}
+      <MiniHero
+        category={propCategory}
+        isNew={isNew}
+        isSale={isSale}
+        searchQuery={searchQuery}
+        count={filtered.length}
+      />
 
       <div className="container-max py-6">
         {/* Toolbar */}

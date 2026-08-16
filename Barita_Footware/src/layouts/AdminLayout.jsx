@@ -115,7 +115,7 @@ export default function AdminLayout() {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto overflow-x-hidden min-w-0 w-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={location.pathname}
@@ -123,7 +123,7 @@ export default function AdminLayout() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.2 }}
-              className="p-4 lg:p-6 min-h-full"
+              className="p-3 sm:p-4 lg:p-6 min-h-full min-w-0 max-w-full overflow-x-hidden"
             >
               <Outlet />
             </motion.div>

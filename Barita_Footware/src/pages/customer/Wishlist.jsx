@@ -3,18 +3,18 @@ import { Link } from "react-router-dom";
 import { Heart, ArrowRight } from "lucide-react";
 import { useWishlist } from "../../context/WishlistContext";
 import ProductCard from "../../components/product/ProductCard";
+import MiniHero from "../../components/common/MiniHero";
 
 export default function Wishlist() {
   const { wishlist } = useWishlist();
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
-      <div className="container-max">
-        <h1 className="font-heading font-black text-3xl text-primary mb-2">My Wishlist</h1>
-        <p className="text-slate-500 text-sm mb-8">{wishlist.length} saved items</p>
+    <div className="min-h-screen bg-slate-50">
+      <MiniHero pageType="wishlist" count={wishlist.length} />
 
+      <div className="container-max py-8">
         {wishlist.length === 0 ? (
-          <div className="bg-white rounded-3xl p-12 text-center border border-slate-100 max-w-md mx-auto">
+          <div className="bg-white rounded-3xl p-12 text-center border border-slate-100 max-w-md mx-auto my-8">
             <div className="w-20 h-20 bg-pink-50 text-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
               <Heart size={36} />
             </div>

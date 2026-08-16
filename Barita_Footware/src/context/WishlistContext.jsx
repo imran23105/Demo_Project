@@ -20,9 +20,9 @@ export function WishlistProvider({ children }) {
   const addToWishlist = (product) => {
     setWishlist((prev) => {
       if (prev.find((p) => p.id === product.id)) return prev;
-      toast.success("Added to wishlist ♥");
       return [...prev, product];
     });
+    toast.success("Added to wishlist ♥");
   };
 
   const removeFromWishlist = (productId) => {
@@ -31,7 +31,8 @@ export function WishlistProvider({ children }) {
   };
 
   const toggleWishlist = (product) => {
-    if (wishlist.find((p) => p.id === product.id)) {
+    const isAlreadyWishlisted = wishlist.some((p) => p.id === product.id);
+    if (isAlreadyWishlisted) {
       removeFromWishlist(product.id);
     } else {
       addToWishlist(product);

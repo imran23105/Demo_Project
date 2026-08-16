@@ -115,13 +115,13 @@ export default function ProductDetailsPage() {
             </div>
 
             {/* Price */}
-            <div className="flex items-center gap-3 py-4 border-y border-slate-100">
-              <span className="font-heading font-black text-3xl text-primary">{formatCurrency(product.price)}</span>
+            <div className="flex flex-wrap items-baseline gap-2 sm:gap-3 py-4 border-y border-slate-100">
+              <span className="font-heading font-black text-2xl sm:text-3xl text-primary">{formatCurrency(product.price)}</span>
               {product.mrp > product.price && (
-                <>
-                  <span className="text-lg text-slate-400 line-through">{formatCurrency(product.mrp)}</span>
-                  <span className="badge bg-green-100 text-green-700 font-bold">Save {formatCurrency(product.mrp - product.price)}</span>
-                </>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="text-base sm:text-lg text-slate-400 line-through">{formatCurrency(product.mrp)}</span>
+                  <span className="badge bg-green-100 text-green-700 font-bold text-xs">Save {formatCurrency(product.mrp - product.price)}</span>
+                </div>
               )}
             </div>
 
@@ -155,7 +155,7 @@ export default function ProductDetailsPage() {
                     <button
                       key={s}
                       onClick={() => setSelectedSize(s)}
-                      className={`w-12 h-12 rounded-xl text-sm font-semibold border-2 transition-all ${
+                      className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl text-xs sm:text-sm font-semibold border-2 transition-all ${
                         selectedSize === s
                           ? "border-secondary bg-secondary text-white shadow-glow-blue"
                           : "border-slate-200 text-slate-600 hover:border-secondary hover:text-secondary"
@@ -171,12 +171,12 @@ export default function ProductDetailsPage() {
             {/* Quantity */}
             <div className="flex items-center gap-4">
               <p className="text-sm font-semibold text-primary">Qty:</p>
-              <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden">
-                <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="w-10 h-10 flex items-center justify-center hover:bg-slate-50 transition-colors text-slate-600">
+              <div className="flex items-center border border-slate-200 rounded-xl overflow-hidden bg-slate-50">
+                <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="w-9 h-9 flex items-center justify-center hover:bg-slate-200 transition-colors text-slate-600">
                   <Minus size={14} />
                 </button>
-                <span className="w-10 text-center text-sm font-semibold text-primary">{quantity}</span>
-                <button onClick={() => setQuantity((q) => q + 1)} className="w-10 h-10 flex items-center justify-center hover:bg-slate-50 transition-colors text-slate-600">
+                <span className="w-8 text-center text-sm font-bold text-primary">{quantity}</span>
+                <button onClick={() => setQuantity((q) => q + 1)} className="w-9 h-9 flex items-center justify-center hover:bg-slate-200 transition-colors text-slate-600">
                   <Plus size={14} />
                 </button>
               </div>
@@ -184,12 +184,12 @@ export default function ProductDetailsPage() {
             </div>
 
             {/* CTAs */}
-            <div className="flex gap-3">
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 pt-1">
               <button
                 onClick={handleAddToCart}
                 id="add-to-cart-btn"
                 disabled={product.stock === 0}
-                className="btn-secondary flex-1 flex items-center justify-center gap-2"
+                className="btn-secondary h-12 px-2 sm:px-4 text-xs sm:text-sm font-bold whitespace-nowrap flex items-center justify-center gap-1.5 shadow-sm"
               >
                 <ShoppingBag size={16} /> Add to Cart
               </button>
@@ -197,51 +197,53 @@ export default function ProductDetailsPage() {
                 to="/checkout"
                 onClick={handleAddToCart}
                 id="buy-now-btn"
-                className="btn-primary flex-1 flex items-center justify-center gap-2"
+                className="btn-primary h-12 px-2 sm:px-4 text-xs sm:text-sm font-bold whitespace-nowrap flex items-center justify-center gap-1.5 shadow-md"
               >
                 Buy Now
               </Link>
             </div>
 
             {/* Trust Badges */}
-            <div className="grid grid-cols-3 gap-3 pt-2">
+            <div className="grid grid-cols-3 gap-2 py-2">
               {[
                 { icon: Shield, label: "Secure Payment" },
                 { icon: Truck, label: "Free Shipping ₹999+" },
                 { icon: RotateCcw, label: "30-Day Returns" },
               ].map(({ icon: Icon, label }) => (
-                <div key={label} className="flex flex-col items-center gap-1.5 text-center">
-                  <div className="w-8 h-8 rounded-lg bg-secondary/10 flex items-center justify-center">
-                    <Icon size={15} className="text-secondary" />
+                <div key={label} className="flex flex-col items-center justify-center p-2 rounded-xl bg-slate-50 border border-slate-100 text-center">
+                  <div className="w-7 h-7 rounded-lg bg-secondary/10 flex items-center justify-center mb-1">
+                    <Icon size={14} className="text-secondary" />
                   </div>
-                  <p className="text-[10px] text-slate-500 leading-tight">{label}</p>
+                  <p className="text-[10px] sm:text-xs font-medium text-slate-600 leading-tight">{label}</p>
                 </div>
               ))}
             </div>
 
             {/* Tabs */}
-            <div className="border border-slate-100 rounded-2xl overflow-hidden">
-              <div className="flex border-b border-slate-100">
+            <div className="border border-slate-200/80 rounded-2xl overflow-hidden bg-white shadow-xs">
+              <div className="grid grid-cols-4 bg-slate-100/80 p-1 gap-1 border-b border-slate-200/60">
                 {["description", "material", "shipping", "returns"].map((t) => (
                   <button
                     key={t}
                     onClick={() => setTab(t)}
-                    className={`flex-1 py-3 text-xs font-semibold capitalize transition-all ${
-                      tab === t ? "bg-secondary text-white" : "text-slate-500 hover:text-primary hover:bg-slate-50"
+                    className={`py-2 px-1 text-[11px] sm:text-xs font-bold capitalize rounded-xl transition-all text-center truncate ${
+                      tab === t
+                        ? "bg-white text-secondary shadow-sm font-extrabold"
+                        : "text-slate-600 hover:text-slate-900"
                     }`}
                   >
                     {t}
                   </button>
                 ))}
               </div>
-              <div className="p-4 text-sm text-slate-600 leading-relaxed">
+              <div className="p-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
                 {tab === "description" && <p>{product.description}</p>}
                 {tab === "material" && (
                   <div>
-                    <p><strong>Material:</strong> {product.material}</p>
-                    <ul className="mt-2 space-y-1">
+                    <p className="font-semibold text-slate-800 mb-2">Material: {product.material}</p>
+                    <ul className="space-y-1.5">
                       {product.features?.map((f) => (
-                        <li key={f} className="flex items-center gap-2 text-xs"><span className="w-1.5 h-1.5 rounded-full bg-secondary inline-block" />{f}</li>
+                        <li key={f} className="flex items-center gap-2 text-xs"><span className="w-1.5 h-1.5 rounded-full bg-secondary inline-block shrink-0" />{f}</li>
                       ))}
                     </ul>
                   </div>

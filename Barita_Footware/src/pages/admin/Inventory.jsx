@@ -21,7 +21,7 @@ export default function Inventory() {
       </div>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-2.5 sm:gap-4">
         {[
           { label: "Total SKU Items", val: inventoryStats.totalProducts, icon: Warehouse, color: "bg-blue-50 text-secondary" },
           { label: "Total Stock Units", val: inventoryStats.totalUnits.toLocaleString(), icon: Warehouse, color: "bg-purple-50 text-purple-600" },
@@ -31,13 +31,13 @@ export default function Inventory() {
         ].map((s) => {
           const Icon = s.icon;
           return (
-            <div key={s.label} className="bg-white rounded-2xl p-4 border border-slate-100 shadow-card flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-xl ${s.color} flex items-center justify-center shrink-0`}>
-                <Icon size={18} />
+            <div key={s.label} className="bg-white rounded-2xl p-3 sm:p-4 border border-slate-100 shadow-card flex items-center gap-2.5 sm:gap-3 min-w-0 overflow-hidden">
+              <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl ${s.color} flex items-center justify-center shrink-0`}>
+                <Icon size={16} />
               </div>
-              <div>
-                <p className="text-[10px] text-slate-400 font-medium">{s.label}</p>
-                <p className="font-heading font-bold text-lg text-primary">{s.val}</p>
+              <div className="min-w-0 flex-1">
+                <p className="text-[10px] sm:text-xs text-slate-400 font-medium truncate">{s.label}</p>
+                <p className="font-heading font-bold text-sm sm:text-lg text-primary truncate">{s.val}</p>
               </div>
             </div>
           );
@@ -56,12 +56,12 @@ export default function Inventory() {
             className="input-field text-xs pl-10 py-2"
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 overflow-x-auto whitespace-nowrap scrollbar-none pb-1 sm:pb-0">
           {["all", "in-stock", "low-stock", "out-of-stock"].map((st) => (
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-semibold capitalize transition-all ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-semibold capitalize transition-all shrink-0 ${
                 statusFilter === st ? "bg-secondary text-white" : "bg-slate-50 text-slate-600 hover:bg-slate-100"
               }`}
             >
@@ -73,7 +73,7 @@ export default function Inventory() {
 
       {/* Table */}
       <div className="bg-white rounded-2xl border border-slate-100 shadow-card overflow-hidden">
-        <div className="overflow-x-auto">
+        <div className="table-responsive">
           <table className="data-table">
             <thead>
               <tr>

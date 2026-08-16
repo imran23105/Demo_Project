@@ -17,12 +17,12 @@ export default function Reports() {
         </div>
 
         {/* Date Filter Buttons */}
-        <div className="flex bg-white rounded-xl p-1 border border-slate-200 shadow-sm">
+        <div className="flex bg-white rounded-xl p-1 border border-slate-200 shadow-sm overflow-x-auto whitespace-nowrap scrollbar-none max-w-full">
           {["today", "week", "month", "year"].map((r) => (
             <button
               key={r}
               onClick={() => setRange(r)}
-              className={`px-4 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all ${
+              className={`px-4 py-1.5 rounded-lg text-xs font-semibold capitalize transition-all shrink-0 ${
                 range === r ? "bg-secondary text-white shadow-glow-blue" : "text-slate-600 hover:text-primary"
               }`}
             >
@@ -33,16 +33,16 @@ export default function Reports() {
       </div>
 
       {/* Metrics */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4">
         {[
           { label: "Total Revenue", val: formatCurrency(data.revenue) },
           { label: "Total Orders", val: data.orders },
           { label: "Average Order Value (AOV)", val: formatCurrency(data.aov) },
           { label: "Net Profit", val: formatCurrency(data.profit) },
         ].map((m) => (
-          <div key={m.label} className="bg-white rounded-2xl p-5 border border-slate-100 shadow-card">
-            <p className="text-xs text-slate-400 font-medium mb-1">{m.label}</p>
-            <p className="font-heading font-black text-2xl text-primary leading-tight">{m.val}</p>
+          <div key={m.label} className="bg-white rounded-2xl p-3.5 sm:p-5 border border-slate-100 shadow-card min-w-0 overflow-hidden">
+            <p className="text-[10px] sm:text-xs text-slate-400 font-medium truncate mb-1">{m.label}</p>
+            <p className="font-heading font-black text-base sm:text-2xl text-primary leading-tight truncate">{m.val}</p>
           </div>
         ))}
       </div>

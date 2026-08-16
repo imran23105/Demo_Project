@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Trash2, ShoppingBag, ArrowRight, ShieldCheck, Tag, Plus, Minus } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { formatCurrency } from "../../utils/formatCurrency";
+import MiniHero from "../../components/common/MiniHero";
 import toast from "react-hot-toast";
 
 export default function Cart() {
@@ -60,11 +61,10 @@ export default function Cart() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 py-8">
-      <div className="container-max">
-        <h1 className="font-heading font-black text-3xl text-primary mb-2">Shopping Cart</h1>
-        <p className="text-slate-500 text-sm mb-8">{totalItems} {totalItems === 1 ? "item" : "items"} in your cart</p>
+    <div className="min-h-screen bg-slate-50">
+      <MiniHero pageType="cart" count={totalItems} />
 
+      <div className="container-max py-8">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Cart Items List */}
           <div className="lg:col-span-2 space-y-4">

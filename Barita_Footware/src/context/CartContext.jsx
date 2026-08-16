@@ -18,22 +18,26 @@ export function CartProvider({ children }) {
   }, [cart]);
 
   const addToCart = (product, size, color, quantity = 1) => {
-    setCart((prev) => {
-      const existingIndex = prev.findIndex(
-        (item) => item.id === product.id && item.size === size && item.color === color
-      );
-      if (existingIndex > -1) {
+    const existingIndex = cart.findIndex(
+      (item) => item.id === product.id && item.size === size && item.color === color
+    );
+    if (existingIndex > -1) {
+      setCart((prev) => {
         const updated = [...prev];
         updated[existingIndex] = {
           ...updated[existingIndex],
           quantity: updated[existingIndex].quantity + quantity,
         };
-        toast.success("Cart updated!");
         return updated;
-      }
+      });
+      toast.success("Cart updated!");
+    } else {
+      setCart((prev) => [
+        ...prev,
+        { ...product, size, color, quantity, cartItemId: `${product.id}-${size}-${color}` },
+      ]);
       toast.success("Added to cart!");
-      return [...prev, { ...product, size, color, quantity, cartItemId: `${product.id}-${size}-${color}` }];
-    });
+    }
   };
 
   const removeFromCart = (cartItemId) => {

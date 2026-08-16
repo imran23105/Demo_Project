@@ -62,23 +62,23 @@ export default function Checkout() {
     <div className="min-h-screen bg-slate-50 py-8">
       <div className="container-max">
         {/* Stepper */}
-        <div className="max-w-2xl mx-auto mb-8">
+        <div className="max-w-2xl mx-auto mb-8 px-2 sm:px-0">
           <div className="flex items-center justify-between relative">
-            <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-slate-200 -z-1" />
+            <div className="absolute left-4 right-4 top-4 -translate-y-1/2 h-0.5 bg-slate-200 -z-1" />
             {[
               { id: 1, label: "Customer Info" },
-              { id: 2, label: "Shipping Address" },
-              { id: 3, label: "Delivery & Payment" },
+              { id: 2, label: "Address" },
+              { id: 3, label: "Payment" },
             ].map((s) => (
-              <div key={s.id} className="flex flex-col items-center z-10">
+              <div key={s.id} className="flex flex-col items-center z-10 bg-slate-50 px-1 sm:px-3">
                 <div
-                  className={`w-9 h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all ${
+                  className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold text-xs transition-all ${
                     step >= s.id ? "bg-secondary text-white shadow-glow-blue" : "bg-white text-slate-400 border border-slate-200"
                   }`}
                 >
                   {step > s.id ? <CheckCircle2 size={16} /> : s.id}
                 </div>
-                <span className={`text-xs mt-1.5 font-medium ${step >= s.id ? "text-primary font-semibold" : "text-slate-400"}`}>
+                <span className={`text-[10px] sm:text-xs mt-1 font-medium text-center ${step >= s.id ? "text-primary font-semibold" : "text-slate-400"}`}>
                   {s.label}
                 </span>
               </div>
