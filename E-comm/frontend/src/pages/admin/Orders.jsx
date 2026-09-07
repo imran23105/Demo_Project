@@ -29,51 +29,61 @@ const AdminOrders = () => {
   };
 
   return (
-    <div className="space-y-5">
-      <h1 className="text-2xl font-bold text-gray-900">Orders ({orders.length})</h1>
+    <div className="space-y-6 max-w-[1400px]">
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-black font-display text-slate-900 tracking-tight">Orders Fulfillment ({orders.length})</h1>
+        <p className="text-xs text-gray-500 mt-1">Track appliance orders, payments, and delivery milestones</p>
+      </div>
 
-      <div className="bg-white rounded-xl shadow-card overflow-hidden">
+      <div className="bg-white rounded-3xl border border-black/5 shadow-sm overflow-hidden">
         {isLoading ? (
-          <div className="flex justify-center py-12"><Spinner size="lg" /></div>
+          <div className="flex justify-center py-16"><Spinner size="lg" /></div>
         ) : (
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-gray-100">
-              <tr>
-                {['Order', 'Customer', 'Items', 'Total', 'Payment', 'Status', 'Date', 'Update'].map((h) => (
-                  <th key={h} className="text-left py-3 px-4 font-semibold text-gray-600 whitespace-nowrap">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50">
-              {orders.map((order) => (
-                <tr key={order._id} className="hover:bg-gray-50">
-                  <td className="py-3 px-4 font-medium text-navy whitespace-nowrap">#{order.orderNumber}</td>
-                  <td className="py-3 px-4">
-                    <p>{order.user?.name || 'Guest'}</p>
-                    <p className="text-xs text-gray-400">{order.user?.email}</p>
-                  </td>
-                  <td className="py-3 px-4 text-gray-600">{order.items?.length || 0}</td>
-                  <td className="py-3 px-4 font-semibold">{formatCurrency(order.totalAmount)}</td>
-                  <td className="py-3 px-4">
-                    <span className={`badge ${order.paymentStatus === 'paid' ? 'badge-success' : 'badge-warning'}`}>{order.paymentStatus}</span>
-                  </td>
-                  <td className="py-3 px-4">
-                    <span className={`badge ${STATUS_STYLES[order.orderStatus] || 'badge-primary'}`}>{order.orderStatus}</span>
-                  </td>
-                  <td className="py-3 px-4 text-gray-500 whitespace-nowrap">{formatDate(order.createdAt)}</td>
-                  <td className="py-3 px-4">
-                    <select
-                      value={order.orderStatus}
-                      onChange={(e) => updateStatus(order._id, e.target.value)}
-                      className="text-xs border border-gray-200 rounded-lg px-2 py-1 focus:outline-none focus:border-navy"
-                    >
-                      {STATUS_OPTIONS.map((s) => <option key={s} value={s}>{s}</option>)}
-                    </select>
-                  </td>
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs sm:text-sm">
+              <thead className="bg-[#11161B] text-white border-b border-black/5">
+                <tr>
+                  {['Order ID', 'Customer', 'Items', 'Total', 'Payment', 'Status', 'Date', 'Update Status'].map((h) => (
+                    <th key={h} className="text-left py-3.5 px-4 font-bold text-[11px] uppercase tracking-wider text-gray-300 whitespace-nowrap">{h}</th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {orders.map((order) => (
+                  <tr key={order._id} className="hover:bg-[#F3F3EE]/50 transition-colors">
+                    <td className="py-3 px-4 font-mono font-bold text-slate-900 whitespace-nowrap">#{order.orderNumber}</td>
+                    <td className="py-3 px-4">
+                      <p className="font-bold text-slate-900">{order.user?.name || 'Guest Customer'}</p>
+                      <p className="text-[11px] text-gray-500">{order.user?.email}</p>
+                    </td>
+                    <td className="py-3 px-4 text-slate-700 font-semibold">{order.items?.length || 0} pcs</td>
+                    <td className="py-3 px-4 font-mono font-bold text-slate-900">{formatCurrency(order.totalAmount)}</td>
+                    <td className="py-3 px-4">
+                      <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase ${
+                        order.paymentStatus === 'paid' ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'
+                      }`}>{order.paymentStatus}</span>
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase ${
+                        order.orderStatus === 'delivered' ? 'bg-emerald-50 text-emerald-700' :
+                        order.orderStatus === 'cancelled' ? 'bg-red-50 text-brand-red' : 'bg-blue-50 text-blue-700'
+                      }`}>{order.orderStatus}</span>
+                    </td>
+                    <td className="py-3 px-4 text-gray-500 whitespace-nowrap text-xs">{formatDate(order.createdAt)}</td>
+                    <td className="py-3 px-4">
+                      <select
+                        value={order.orderStatus}
+                        onChange={(e) => updateStatus(order._id, e.target.value)}
+                        className="text-xs bg-[#F3F3EE] border border-black/10 rounded-full px-3 py-1 font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-red cursor-pointer"
+                      >
+                        {STATUS_OPTIONS.map((s) => <option key={s} value={s}>{s}</option>)}
+                      </select>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

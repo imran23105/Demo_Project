@@ -44,59 +44,71 @@ const CartSummary = ({ onCheckout, isCheckout = false }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-card p-5">
-      <h3 className="font-bold text-gray-900 mb-4">Order Summary</h3>
+    <div className="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+      <div className="pb-3 border-b border-gray-100 mb-4">
+        <div className="text-[10px] font-extrabold uppercase tracking-wider text-gray-400">
+          PRICE DETAILS
+        </div>
+        <h3 className="font-display font-black text-lg text-slate-900">Order Summary</h3>
+      </div>
 
-      <div className="space-y-3 text-sm mb-4">
+      <div className="space-y-3 text-xs sm:text-sm mb-5">
         <div className="flex justify-between text-gray-600">
-          <span>Subtotal</span>
-          <span>{formatCurrency(subtotal)}</span>
+          <span>Items Total</span>
+          <span className="font-bold text-slate-900">{formatCurrency(subtotal)}</span>
         </div>
         <div className="flex justify-between text-gray-600">
-          <span>Shipping</span>
-          <span className={shipping === 0 ? 'text-green-600 font-medium' : ''}>
+          <span>Standard Delivery</span>
+          <span className={shipping === 0 ? 'text-emerald-600 font-bold' : 'font-bold text-slate-900'}>
             {shipping === 0 ? 'FREE' : formatCurrency(shipping)}
           </span>
         </div>
         <div className="flex justify-between text-gray-600">
-          <span>Tax (GST 18%)</span>
-          <span>{formatCurrency(tax)}</span>
+          <span>Estimated GST (18%)</span>
+          <span className="font-bold text-slate-900">{formatCurrency(tax)}</span>
         </div>
         {coupon.discount > 0 && (
-          <div className="flex justify-between text-green-600">
-            <span className="flex items-center gap-1"><FiTag size={13} /> Coupon ({coupon.code})</span>
+          <div className="flex justify-between text-emerald-700 font-bold bg-emerald-50 px-3 py-1.5 rounded-xl">
+            <span className="flex items-center gap-1"><FiTag size={13} /> {coupon.code}</span>
             <span>-{formatCurrency(coupon.discount)}</span>
           </div>
         )}
-        <div className="border-t border-gray-100 pt-3 flex justify-between font-bold text-gray-900">
-          <span>Total</span>
-          <span className="text-navy">{formatCurrency(Math.max(total, 0))}</span>
+        <div className="border-t border-gray-100 pt-3 flex justify-between items-baseline font-black text-slate-900 text-base">
+          <span>Grand Total</span>
+          <span className="text-xl text-slate-900 font-display">
+            {formatCurrency(Math.max(total, 0))}
+          </span>
         </div>
       </div>
 
       {/* Coupon */}
       {!isCheckout && (
-        <div className="mb-4">
+        <div className="mb-5">
           {coupon.code ? (
-            <div className="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
-              <FiCheck size={14} className="text-green-600" />
-              <span className="text-sm text-green-700 flex-1">{coupon.code} applied</span>
-              <button onClick={handleRemoveCoupon} className="text-xs text-red-500 hover:text-red-700">Remove</button>
+            <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-full px-4 py-2">
+              <FiCheck size={14} className="text-emerald-600" />
+              <span className="text-xs font-bold text-emerald-700 flex-1">{coupon.code} applied</span>
+              <button
+                onClick={handleRemoveCoupon}
+                className="text-xs font-extrabold text-brand-red hover:underline"
+              >
+                Remove
+              </button>
             </div>
           ) : (
             <div className="flex gap-2">
               <input
                 type="text"
-                placeholder="Coupon code"
+                placeholder="PROMO CODE"
                 value={couponInput}
                 onChange={(e) => setCouponInput(e.target.value.toUpperCase())}
                 onKeyDown={(e) => e.key === 'Enter' && handleApplyCoupon()}
-                className="input-field text-sm py-2 flex-1"
+                className="input-field text-xs py-2.5 px-4 uppercase tracking-wider flex-1"
               />
               <button
                 onClick={handleApplyCoupon}
                 disabled={isApplying}
-                className="px-4 py-2 bg-navy text-white text-sm font-semibold rounded-lg hover:bg-navy-dark transition-colors disabled:opacity-60"
+                className="px-5 py-2.5 bg-[#11161B] hover:bg-brand-red text-white text-xs font-bold rounded-full transition-colors disabled:opacity-60 flex-shrink-0"
               >
                 {isApplying ? '...' : 'Apply'}
               </button>
@@ -106,19 +118,18 @@ const CartSummary = ({ onCheckout, isCheckout = false }) => {
       )}
 
       {shipping === 0 && subtotal > 0 && (
-        <p className="text-xs text-green-600 bg-green-50 rounded-lg px-3 py-2 mb-4">
-          🎉 You qualify for free shipping!
-        </p>
-      )}
-      {shipping > 0 && (
-        <p className="text-xs text-gray-500 bg-gray-50 rounded-lg px-3 py-2 mb-4">
-          Add ₹{formatCurrency(500 - subtotal)} more for free shipping
+        <p className="text-xs font-bold text-emerald-700 bg-emerald-50 rounded-2xl px-3.5 py-2 mb-4 text-center">
+          🎉 You qualify for Free Delivery on this order!
         </p>
       )}
 
       {onCheckout && (
-        <button onClick={onCheckout} className="btn-primary w-full py-3 text-base">
-          Proceed to Checkout →
+        <button
+          onClick={onCheckout}
+          className="w-full py-3.5 px-6 rounded-full bg-brand-red hover:bg-brand-redHover text-white text-sm font-bold shadow-md hover:shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2"
+        >
+          <span>Proceed to Checkout</span>
+          <span>→</span>
         </button>
       )}
     </div>

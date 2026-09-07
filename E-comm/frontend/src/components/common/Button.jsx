@@ -15,16 +15,17 @@ const Button = ({
   className = '',
   ...props
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center gap-2 font-semibold rounded-lg transition-all duration-200 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed';
+  const baseClasses = 'inline-flex items-center justify-center gap-2 font-bold rounded-full transition-all duration-200 active:scale-95 disabled:opacity-60 disabled:cursor-not-allowed shadow-sm';
 
   const variants = {
-    primary: 'bg-navy text-white hover:bg-navy-dark hover:shadow-md',
-    secondary: 'bg-white text-navy border-2 border-navy hover:bg-navy hover:text-white',
-    accent: 'bg-amber-500 text-white hover:bg-amber-600',
-    success: 'bg-green-600 text-white hover:bg-green-700',
+    primary: 'bg-brand-red text-white hover:bg-brand-redHover hover:shadow-md shadow-red-500/20',
+    secondary: 'bg-white text-slate-900 border border-gray-200 hover:border-slate-800 hover:bg-gray-50',
+    accent: 'bg-[#CEF04A] text-slate-950 hover:bg-[#BDE032] font-black',
+    dark: 'bg-[#11161B] text-white hover:bg-brand-red',
+    success: 'bg-emerald-600 text-white hover:bg-emerald-700',
     danger: 'bg-red-600 text-white hover:bg-red-700',
-    ghost: 'text-gray-700 hover:bg-gray-100',
-    outline: 'text-gray-700 border border-gray-300 bg-white hover:border-navy hover:text-navy',
+    ghost: 'text-gray-700 hover:bg-gray-100 shadow-none',
+    outline: 'text-gray-700 border border-gray-300 bg-white hover:border-slate-900 hover:text-slate-900',
   };
 
   const sizes = {

@@ -22,48 +22,66 @@ const AdminUsers = () => {
   };
 
   return (
-    <div className="space-y-5">
-      <h1 className="text-2xl font-bold text-gray-900">Users ({users.length})</h1>
-      <div className="bg-white rounded-xl shadow-card overflow-hidden">
-        {isLoading ? <div className="flex justify-center py-12"><Spinner size="lg" /></div> : (
-          <table className="w-full text-sm">
-            <thead className="bg-gray-50 border-b border-gray-100">
-              <tr>
-                {['User', 'Role', 'Status', 'Joined', 'Actions'].map((h) => (
-                  <th key={h} className="text-left py-3 px-4 font-semibold text-gray-600">{h}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-50">
-              {users.map((user) => (
-                <tr key={user._id} className="hover:bg-gray-50">
-                  <td className="py-3 px-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-full bg-navy text-white flex items-center justify-center font-bold text-xs">
-                        {user.name?.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="font-medium">{user.name}</p>
-                        <p className="text-xs text-gray-400">{user.email}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="py-3 px-4">
-                    <span className={`badge ${user.role === 'admin' ? 'badge-primary' : 'badge-success'}`}>{user.role}</span>
-                  </td>
-                  <td className="py-3 px-4">
-                    <span className={`badge ${user.isActive ? 'badge-success' : 'badge-danger'}`}>{user.isActive ? 'Active' : 'Blocked'}</span>
-                  </td>
-                  <td className="py-3 px-4 text-gray-500">{formatDate(user.createdAt)}</td>
-                  <td className="py-3 px-4">
-                    <button onClick={() => toggleStatus(user._id)} className={`text-xs px-3 py-1 rounded-lg font-medium transition-colors ${user.isActive ? 'bg-red-100 text-red-600 hover:bg-red-200' : 'bg-green-100 text-green-600 hover:bg-green-200'}`}>
-                      {user.isActive ? 'Block' : 'Unblock'}
-                    </button>
-                  </td>
+    <div className="space-y-6 max-w-[1400px]">
+      <div>
+        <h1 className="text-2xl sm:text-3xl font-black font-display text-slate-900 tracking-tight">Registered Customers ({users.length})</h1>
+        <p className="text-xs text-gray-500 mt-1">Manage user permissions, roles and account access</p>
+      </div>
+      <div className="bg-white rounded-3xl border border-black/5 shadow-sm overflow-hidden">
+        {isLoading ? (
+          <div className="flex justify-center py-16"><Spinner size="lg" /></div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-xs sm:text-sm">
+              <thead className="bg-[#11161B] text-white border-b border-black/5">
+                <tr>
+                  {['Customer Profile', 'Account Role', 'Access Status', 'Registered Date', 'Actions'].map((h) => (
+                    <th key={h} className="text-left py-3.5 px-4 font-bold text-[11px] uppercase tracking-wider text-gray-300">{h}</th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {users.map((user) => (
+                  <tr key={user._id} className="hover:bg-[#F3F3EE]/50 transition-colors">
+                    <td className="py-3 px-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 rounded-full bg-[#11161B] text-white flex items-center justify-center font-bold text-xs ring-2 ring-black/5">
+                          {user.name?.charAt(0)?.toUpperCase()}
+                        </div>
+                        <div>
+                          <p className="font-bold text-slate-900">{user.name}</p>
+                          <p className="text-[11px] text-gray-500">{user.email}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase ${
+                        user.role === 'admin' ? 'bg-[#11161B] text-[#CEF04A]' : 'bg-gray-100 text-slate-700'
+                      }`}>{user.role}</span>
+                    </td>
+                    <td className="py-3 px-4">
+                      <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                        user.isActive ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-brand-red'
+                      }`}>{user.isActive ? 'Active' : 'Blocked'}</span>
+                    </td>
+                    <td className="py-3 px-4 text-gray-500 text-xs">{formatDate(user.createdAt)}</td>
+                    <td className="py-3 px-4">
+                      <button
+                        onClick={() => toggleStatus(user._id)}
+                        className={`text-xs px-3.5 py-1 rounded-full font-bold transition-all ${
+                          user.isActive
+                            ? 'bg-red-50 text-brand-red hover:bg-red-100'
+                            : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
+                        }`}
+                      >
+                        {user.isActive ? 'Restrict Access' : 'Restore Access'}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>

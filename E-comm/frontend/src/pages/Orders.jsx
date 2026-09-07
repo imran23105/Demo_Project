@@ -68,32 +68,37 @@ const Orders = () => {
   }
 
   return (
-    <div className="container-custom py-8">
+    <div className="container-custom py-6">
       {isAdmin && (
-        <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+        <div className="mb-6 p-5 bg-[#11161B] text-white border border-white/10 rounded-3xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-md">
           <div>
-            <h2 className="text-sm font-bold text-navy flex items-center gap-2">
-              👑 Administrator View: Personal Orders vs Store Management
+            <h2 className="text-xs font-black text-[#CEF04A] uppercase tracking-wider flex items-center gap-2">
+              👑 Administrator Mode
             </h2>
-            <p className="text-xs text-gray-600 mt-0.5">
-              You are viewing your personal placed orders. To inspect and update all customer orders across the platform, visit the Admin Orders Panel.
+            <p className="text-xs text-gray-300 mt-1">
+              You are viewing your personal placed orders. To manage and fulfill customer orders, visit the Admin Panel.
             </p>
           </div>
           <Link
             to="/admin/orders"
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-navy text-white text-xs font-semibold rounded-lg hover:bg-navy-dark transition-all whitespace-nowrap shadow-sm"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-slate-900 text-xs font-bold rounded-full hover:bg-[#CEF04A] transition-all whitespace-nowrap shadow-sm"
           >
             Manage All Orders →
           </Link>
         </div>
       )}
 
-      <div className="flex items-center justify-between mb-6">
+      {/* Header Card */}
+      <div className="bg-white rounded-3xl p-5 sm:p-6 mb-6 shadow-sm border border-gray-100 flex items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Orders</h1>
-          <p className="text-sm text-gray-500 mt-0.5">Track, review, or cancel your orders</p>
+          <div className="text-[10px] font-extrabold uppercase tracking-wider text-gray-400">
+            ORDER HISTORY
+          </div>
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 font-display">
+            My Orders & Tracking
+          </h1>
         </div>
-        <span className="text-xs font-semibold px-3 py-1 bg-gray-100 text-gray-700 rounded-full">
+        <span className="text-xs font-bold px-3.5 py-1.5 bg-gray-100 text-slate-800 rounded-full">
           {orders.length} {orders.length === 1 ? 'Order' : 'Orders'}
         </span>
       </div>
@@ -103,7 +108,7 @@ const Orders = () => {
           icon="📦"
           title="No orders yet"
           description="When you place an order, it'll show up here with live status tracking."
-          actionLabel="Start Shopping"
+          actionLabel="Explore Appliances"
           actionHref="/shop"
         />
       ) : (
@@ -113,28 +118,28 @@ const Orders = () => {
             const canCancel = ['pending', 'confirmed'].includes(order.orderStatus);
 
             return (
-              <div key={order._id} className="bg-white rounded-xl shadow-card border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
+              <div key={order._id} className="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
                 {/* Header */}
-                <div className="flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5 bg-slate-50/70 border-b border-gray-100">
+                <div className="flex flex-wrap items-center justify-between gap-3 p-4 sm:p-5 bg-gray-50/70 border-b border-gray-100">
                   <div>
-                    <span className="text-xs text-gray-500 uppercase tracking-wider font-semibold">Order</span>
-                    <p className="font-bold text-navy text-base">#{order.orderNumber}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">Placed on {formatDate(order.createdAt)}</p>
+                    <span className="text-[10px] text-gray-400 uppercase tracking-wider font-extrabold">ORDER</span>
+                    <p className="font-black text-slate-900 text-sm sm:text-base font-display">#{order.orderNumber}</p>
+                    <p className="text-xs text-gray-500 mt-0.5">Placed on {formatDate(order.createdAt)}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className={`px-2.5 py-1 text-xs font-semibold rounded-full border capitalize ${statusInfo.badge}`}>
+                    <span className={`px-3 py-1 text-xs font-bold rounded-full border capitalize ${statusInfo.badge}`}>
                       {statusInfo.label}
                     </span>
                     <div className="text-right">
-                      <span className="text-xs text-gray-500">Total</span>
-                      <p className="font-bold text-gray-900 text-base">{formatCurrency(order.totalAmount)}</p>
+                      <span className="text-[10px] text-gray-400 uppercase font-bold block">Total</span>
+                      <p className="font-black text-slate-900 text-base">{formatCurrency(order.totalAmount)}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Progress Bar (if not cancelled) */}
                 {order.orderStatus !== 'cancelled' ? (
-                  <div className="px-5 py-3 bg-white border-b border-gray-50 hidden sm:block">
+                  <div className="px-5 py-3.5 bg-white border-b border-gray-50 hidden sm:block">
                     <div className="flex items-center justify-between text-xs font-medium text-gray-500">
                       {TIMELINE_STEPS.map((stepName, i) => {
                         const isDone = i <= statusInfo.step;
@@ -144,24 +149,34 @@ const Orders = () => {
                             <div className="flex flex-col items-center">
                               <div
                                 className={`w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold transition-all ${
-                                  isDone ? 'bg-navy text-white' : 'bg-gray-200 text-gray-500'
-                                } ${isCurrent ? 'ring-2 ring-navy/30 ring-offset-1 scale-110' : ''}`}
+                                  isDone ? 'bg-slate-900 text-[#CEF04A]' : 'bg-gray-200 text-gray-500'
+                                } ${isCurrent ? 'ring-2 ring-slate-900/30 ring-offset-1 scale-110' : ''}`}
                               >
                                 {isDone ? '✓' : i + 1}
                               </div>
-                              <span className={`text-[10px] mt-1 ${isCurrent ? 'font-bold text-navy' : 'text-gray-400'}`}>
+                              <span
+                                className={`text-[10px] mt-1 font-semibold ${
+                                  isCurrent ? 'text-slate-900 font-bold' : isDone ? 'text-slate-700' : 'text-gray-400'
+                                }`}
+                              >
                                 {stepName}
                               </span>
                             </div>
                             {i < TIMELINE_STEPS.length - 1 && (
-                              <div className={`flex-1 h-0.5 mx-2 ${i < statusInfo.step ? 'bg-navy' : 'bg-gray-200'}`} />
+                              <div
+                                className={`h-0.5 flex-1 mx-2 transition-all ${
+                                  i < statusInfo.step ? 'bg-slate-900' : 'bg-gray-200'
+                                }`}
+                              />
                             )}
                           </div>
                         );
                       })}
                     </div>
                   </div>
-                ) : (
+                ) : null}
+
+                {order.orderStatus === 'cancelled' && (
                   <div className="px-5 py-2.5 bg-rose-50/50 border-b border-rose-100 text-rose-700 text-xs flex items-center gap-2">
                     <FiXCircle /> This order was cancelled.
                   </div>
