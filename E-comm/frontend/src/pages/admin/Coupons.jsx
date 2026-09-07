@@ -121,7 +121,7 @@ const AdminCoupons = () => {
                     <td className="py-3 px-4 capitalize text-slate-700 font-semibold">{c.discountType}</td>
                     <td className="py-3 px-4 font-bold text-slate-900">{c.discountType === 'percentage' ? `${c.discountValue}%` : `₹${c.discountValue}`}</td>
                     <td className="py-3 px-4 text-slate-600">{c.minOrderAmount ? `₹${c.minOrderAmount}` : 'None'}</td>
-                    <td className="py-3 px-4 font-mono text-xs">{c.currentUses} / {c.maxUses || '∞'}</td>
+                    <td className="py-3 px-4 font-mono text-xs">{c.currentUses ?? c.usedCount ?? 0} / {c.maxUses || c.usageLimit || '∞'}</td>
                     <td className="py-3 px-4 text-gray-500 text-xs">{c.expiresAt ? formatDate(c.expiresAt) : 'Permanent'}</td>
                     <td className="py-3 px-4">
                       <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold ${c.isActive ? 'bg-emerald-50 text-emerald-700' : 'bg-red-50 text-brand-red'}`}>
