@@ -66,16 +66,22 @@ const AdminUsers = () => {
                     </td>
                     <td className="py-3 px-4 text-gray-500 text-xs">{formatDate(user.createdAt)}</td>
                     <td className="py-3 px-4">
-                      <button
-                        onClick={() => toggleStatus(user._id)}
-                        className={`text-xs px-3.5 py-1 rounded-full font-bold transition-all ${
-                          user.isActive
-                            ? 'bg-red-50 text-brand-red hover:bg-red-100'
-                            : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
-                        }`}
-                      >
-                        {user.isActive ? 'Restrict Access' : 'Restore Access'}
-                      </button>
+                      {user.role === 'admin' ? (
+                        <span className="text-[11px] font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full">
+                          Protected
+                        </span>
+                      ) : (
+                        <button
+                          onClick={() => toggleStatus(user._id)}
+                          className={`text-xs px-3.5 py-1 rounded-full font-bold transition-all ${
+                            user.isActive
+                              ? 'bg-red-50 text-brand-red hover:bg-red-100'
+                              : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'
+                          }`}
+                        >
+                          {user.isActive ? 'Restrict Access' : 'Restore Access'}
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

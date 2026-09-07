@@ -117,6 +117,14 @@ const updateUserRole = asyncHandler(async (req, res) => {
 const toggleUserStatus = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
   if (!user) throw ApiError.notFound('User not found');
+
+  if (req.user._id.toString() === user._id.toString()) {
+    throw ApiError.badRequest('You cannot deactivate your own admin account');
+  }
+  if (user.role === 'admin') {
+    throw ApiError.badRequest('Admin accounts cannot be deactivated');
+  }
+
   user.isActive = !user.isActive;
   await user.save({ validateBeforeSave: false });
   ApiResponse.success(res, `User ${user.isActive ? 'activated' : 'deactivated'}`, user);
