@@ -23,6 +23,20 @@ export default {
           dark: '#0f2d4a',
         },
         accent: '#f59e0b',
+        lime: {
+          DEFAULT: '#CEF04A',
+          dark: '#B5DC2A',
+          light: '#E1F876',
+        },
+        brand: {
+          dark: '#11161B',
+          darker: '#0B0F13',
+          red: '#B8161D',
+          redHover: '#9E1218',
+          green: '#387B2E',
+          cream: '#F3F3EE',
+          surface: '#F7F7F4',
+        },
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],

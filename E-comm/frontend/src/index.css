@@ -12,7 +12,7 @@
   }
 
   body {
-    @apply font-sans text-gray-800 bg-gray-50 antialiased;
+    @apply font-sans text-gray-900 bg-[#F3F3EE] antialiased selection:bg-lime selection:text-black;
   }
 
   ::-webkit-scrollbar {

@@ -27,37 +27,45 @@ const Categories = () => {
   }, []);
 
   return (
-    <section className="py-8">
-      <div className="flex items-center justify-between mb-6">
+    <section className="py-5">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="section-title">Browse By Categories</h2>
-          <p className="section-subtitle">Explore handpicked collections for every part of your life.</p>
+          <div className="text-[11px] font-extrabold uppercase tracking-wider text-gray-500">
+            EXPLORE COLLECTIONS
+          </div>
+          <h2 className="font-display font-black text-2xl sm:text-3xl text-slate-900 tracking-tight">
+            Browse By Categories
+          </h2>
         </div>
-        <Link to="/shop" className="text-sm text-navy font-semibold flex items-center gap-1 hover:gap-2 transition-all">
-          View All <FiChevronRight size={16} />
+        <Link
+          to="/shop"
+          className="text-xs sm:text-sm font-bold text-slate-900 hover:text-brand-red flex items-center gap-1 bg-white px-4 py-2 rounded-full border border-gray-200/70 shadow-sm hover:shadow transition-all"
+        >
+          View All <FiChevronRight size={14} />
         </Link>
       </div>
 
-      <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+      <div className="flex gap-3.5 overflow-x-auto pb-3 pt-1 scrollbar-hide -mx-1 px-1">
         {categories.map((cat, i) => (
           <motion.div
             key={cat._id}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.05 }}
+            transition={{ delay: i * 0.04 }}
+            className="flex-shrink-0"
           >
             <Link
               to={`/shop?category=${cat._id}`}
-              className="flex flex-col items-center gap-2 min-w-[80px] group"
+              className="group flex flex-col items-center p-3.5 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-gray-200 transition-all duration-200 w-24 sm:w-28 text-center"
             >
-              <div className="w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden border-2 border-transparent group-hover:border-navy transition-all duration-200 shadow-card group-hover:shadow-card-hover">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden bg-gray-50 mb-2.5 p-1 border border-gray-100 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <img
-                  src={cat.image || CATEGORY_IMAGES[cat.name?.toLowerCase()] || `https://ui-avatars.com/api/?name=${cat.name}&background=1e3a5f&color=fff&size=80`}
+                  src={cat.image || CATEGORY_IMAGES[cat.name?.toLowerCase()] || `https://ui-avatars.com/api/?name=${cat.name}&background=11161b&color=cef04a&size=100`}
                   alt={cat.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="w-full h-full object-cover rounded-xl"
                 />
               </div>
-              <span className="text-xs text-center text-gray-700 font-medium leading-tight max-w-[72px] group-hover:text-navy transition-colors">
+              <span className="text-xs font-bold text-slate-800 line-clamp-1 group-hover:text-brand-red transition-colors">
                 {cat.name}
               </span>
             </Link>

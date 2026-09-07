@@ -17,30 +17,32 @@ const TrendingProducts = () => {
   }, []);
 
   return (
-    <section className="py-8">
-      <div className="flex items-center justify-between mb-6">
+    <section className="py-5">
+      <div className="flex items-center justify-between mb-4">
         <div>
-          <h2 className="section-title flex items-center gap-2">
-            Trending Right Now <FiZap className="text-amber-400" size={20} />
+          <div className="text-[11px] font-extrabold uppercase tracking-wider text-brand-red flex items-center gap-1.5">
+            <FiZap className="fill-brand-red" size={13} />
+            <span>POPULAR PICKS</span>
+          </div>
+          <h2 className="font-display font-black text-2xl sm:text-3xl text-slate-900 tracking-tight">
+            Trending Right Now
           </h2>
-          <p className="section-subtitle">Top picks that everyone is loving this week.</p>
         </div>
-        <Link to="/shop?isTrending=true" className="text-sm text-navy font-semibold flex items-center gap-1 hover:gap-2 transition-all">
-          View All <FiChevronRight size={16} />
+        <Link
+          to="/shop?isTrending=true"
+          className="text-xs sm:text-sm font-bold text-slate-900 hover:text-brand-red flex items-center gap-1 bg-white px-4 py-2 rounded-full border border-gray-200/70 shadow-sm hover:shadow transition-all"
+        >
+          View All <FiChevronRight size={14} />
         </Link>
       </div>
 
-      <div className="flex gap-4 overflow-x-auto pb-3 scrollbar-hide">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5 sm:gap-4">
         {isLoading
-          ? Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="flex-shrink-0 w-44">
-                <ProductCardSkeleton />
-              </div>
+          ? Array.from({ length: 5 }).map((_, i) => (
+              <ProductCardSkeleton key={i} />
             ))
-          : products.map((product) => (
-              <div key={product._id} className="flex-shrink-0 w-44">
-                <ProductCard product={product} compact />
-              </div>
+          : products.slice(0, 5).map((product) => (
+              <ProductCard key={product._id} product={product} />
             ))
         }
       </div>

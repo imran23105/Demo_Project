@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler');
+const mongoose = require('mongoose');
 const Product = require('../models/Product');
+const Category = require('../models/Category');
 const ApiError = require('../utils/ApiError');
 const ApiResponse = require('../utils/ApiResponse');
 const { uploadMultipleImages, deleteImage, deleteMultipleImages } = require('../services/cloudinaryService');
@@ -15,7 +17,23 @@ const getProducts = asyncHandler(async (req, res) => {
 
   const query = { isActive: true };
 
-  if (category) query.category = category;
+  if (category) {
+    if (mongoose.Types.ObjectId.isValid(category)) {
+      query.category = category;
+    } else {
+      const catDoc = await Category.findOne({
+        $or: [
+          { slug: category.toLowerCase() },
+          { name: { $regex: new RegExp(`^${category.replace(/-/g, ' ')}$`, 'i') } },
+        ],
+      });
+      if (catDoc) {
+        query.category = catDoc._id;
+      } else {
+        query.category = new mongoose.Types.ObjectId(); // No matching category
+      }
+    }
+  }
   if (brand) query.brand = { $regex: brand, $options: 'i' };
   if (minPrice || maxPrice) {
     query.price = {};
